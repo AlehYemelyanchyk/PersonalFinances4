@@ -21,8 +21,8 @@ public class SqlPortfolioDAO implements PortfolioDAO {
     @Transactional
     @Override
     public List<Portfolio> getAllPortfolios() throws DAOException {
-        Session currentSession = sessionFactory.getCurrentSession();
-        Query<Portfolio> query = currentSession.createQuery("from Portfolio", Portfolio.class);
+        Session session = sessionFactory.getCurrentSession();
+        Query<Portfolio> query = session.createQuery("from Portfolio", Portfolio.class);
         List<Portfolio> portfolioList = query.getResultList();
         return portfolioList;
     }
