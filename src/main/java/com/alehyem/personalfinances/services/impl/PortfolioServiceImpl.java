@@ -1,27 +1,24 @@
-package com.alehyem.personalfinances.dao.impl;
+package com.alehyem.personalfinances.services.impl;
 
 import com.alehyem.personalfinances.dao.PortfolioDAO;
 import com.alehyem.personalfinances.entity.Portfolio;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import com.alehyem.personalfinances.services.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
-@Repository
-public class SqlPortfolioDAO implements PortfolioDAO {
+@Service
+public class PortfolioServiceImpl implements PortfolioService {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private PortfolioDAO portfolioDAO;
 
     @Override
+    @Transactional
     public List<Portfolio> findAll() {
-        Session session = sessionFactory.getCurrentSession();
-        Query<Portfolio> query = session.createQuery("from Portfolio", Portfolio.class);
-        List<Portfolio> portfolioList = query.getResultList();
-        return portfolioList;
+        return portfolioDAO.findAll();
     }
 
     @Override
