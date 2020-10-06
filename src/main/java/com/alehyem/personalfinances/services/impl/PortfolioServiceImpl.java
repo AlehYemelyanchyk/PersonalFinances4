@@ -22,32 +22,38 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public List<Portfolio> findAllUserPortfolios(int UserId) {
-        return null;
+    @Transactional
+    public List<Portfolio> findAllUserPortfolios(int userId) {
+        return portfolioDAO.findAllUserPortfolios(userId);
     }
 
     @Override
-    public Portfolio findById(Integer integer) {
-        return null;
+    @Transactional
+    public Portfolio findById(Integer id) {
+        return portfolioDAO.findById(id);
     }
 
     @Override
-    public Portfolio save(Portfolio object) {
-        return null;
+    @Transactional
+    public void save(Portfolio object) {
+        portfolioDAO.save(object);
     }
 
     @Override
+    @Transactional
     public Portfolio update(Portfolio object) {
-        return null;
+        return portfolioDAO.update(object);
     }
 
     @Override
+    @Transactional
     public void delete(Portfolio object) {
-
+        portfolioDAO.delete(object);
     }
 
     @Override
-    public void deleteById(Integer integer) {
-
+    @Transactional
+    public void deleteById(Integer id) {
+        portfolioDAO.deleteById(id);
     }
 }

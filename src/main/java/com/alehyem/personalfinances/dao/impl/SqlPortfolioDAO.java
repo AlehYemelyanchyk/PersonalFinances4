@@ -19,24 +19,26 @@ public class SqlPortfolioDAO implements PortfolioDAO {
     @Override
     public List<Portfolio> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        Query<Portfolio> query = session.createQuery("from Portfolio", Portfolio.class);
+        Query<Portfolio> query = session.createQuery("from Portfolio order by name", Portfolio.class);
         List<Portfolio> portfolioList = query.getResultList();
         return portfolioList;
     }
 
     @Override
-    public List<Portfolio> findAllUserPortfolios(int UserId) {
+    public List<Portfolio> findAllUserPortfolios(int userId) {
         return null;
     }
 
     @Override
-    public Portfolio findById(Integer integer) {
-        return null;
+    public Portfolio findById(Integer id) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Portfolio.class, id);
     }
 
     @Override
-    public Portfolio save(Portfolio object) {
-        return null;
+    public void save(Portfolio object) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(object);
     }
 
     @Override
@@ -46,11 +48,15 @@ public class SqlPortfolioDAO implements PortfolioDAO {
 
     @Override
     public void delete(Portfolio object) {
-
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(object);
     }
 
     @Override
-    public void deleteById(Integer integer) {
-
+    public void deleteById(Integer id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("delete from Portfolio where id=:id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }

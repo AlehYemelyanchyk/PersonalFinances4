@@ -1,5 +1,7 @@
 package com.alehyem.personalfinances.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = -299089265220451433L;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.DETACH,
             CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Portfolio> portfolios;

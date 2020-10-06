@@ -1,5 +1,7 @@
 package com.alehyem.personalfinances.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ public class Role implements Serializable {
 
     private static final long serialVersionUID = 893137926844424282L;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "role", cascade = {CascadeType.MERGE, CascadeType.DETACH,
             CascadeType.PERSIST, CascadeType.REFRESH})
     private List<User> users;
