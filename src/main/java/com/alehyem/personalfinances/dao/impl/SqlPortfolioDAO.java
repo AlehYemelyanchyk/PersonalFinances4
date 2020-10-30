@@ -8,6 +8,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -17,6 +18,7 @@ public class SqlPortfolioDAO implements PortfolioDAO {
     private SessionFactory sessionFactory;
 
     @Override
+    @Transactional
     public List<Portfolio> findAll() {
         Session session = sessionFactory.getCurrentSession();
         Query<Portfolio> query = session.createQuery("from Portfolio order by name", Portfolio.class);

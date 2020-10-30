@@ -16,6 +16,21 @@ public class PortfolioRestController {
     @Autowired
     private PortfolioService portfolioService;
 
+    @GetMapping("/showAddForm")
+    public String showAddForm(Model model) {
+        Portfolio portfolio = new Portfolio();
+        model.addAttribute("portfolio", portfolio);
+        return "portfolios/addForm";
+    }
+
+    @PostMapping("/portfolios")
+    public Portfolio addPortfolio(@RequestBody Portfolio portfolio) {
+        portfolio.setId(0);
+        portfolioService.save(portfolio);
+
+        return portfolio;
+    }
+
     @GetMapping("/portfolios")
     public List<Portfolio> getList() {
 
@@ -30,21 +45,6 @@ public class PortfolioRestController {
         if (portfolio == null) {
             throw new PortfolioNotFoundException("Customer id " + id + " is not found.");
         }
-        return portfolio;
-    }
-
-    @GetMapping("/showAddForm")
-    public String showAddForm(Model model) {
-        Portfolio portfolio = new Portfolio();
-        model.addAttribute("portfolio", portfolio);
-        return "portfolios/addForm";
-    }
-
-    @PostMapping("/portfolios")
-    public Portfolio addPortfolio(@RequestBody Portfolio portfolio) {
-        portfolio.setId(0);
-        portfolioService.save(portfolio);
-
         return portfolio;
     }
 
